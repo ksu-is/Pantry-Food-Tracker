@@ -1,0 +1,37 @@
+# -*- coding: utf-8 -*-
+"""
+IS3020
+
+@author: David Thomas
+"""
+
+import pickle
+import copy
+import os
+import datetime
+
+def addFood():
+    file = open('save.pkl', 'rb')
+    out = pickle.load(file)
+    new = copy.copy(out)
+    file.close()
+    os.remove('save.pkl')
+    foodName = input('enter food: ')
+    expDate = input('enter experation date: ')
+    new.update({foodName :'test'})
+    file = open('save.pkl', 'wb')
+    pickle.dump(new, file)
+    print(new)
+
+def deleteSave ():
+    os.remove('save.pkl')
+
+def newSave():
+    food = {}
+    file = open('save.pkl', 'wb')
+    pickle.dump(food,file)
+    file.close()
+
+
+today = datetime.date()
+print(today)

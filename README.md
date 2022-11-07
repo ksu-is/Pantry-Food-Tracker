@@ -6,4 +6,5 @@ Currently users can create and delete a save file, and add food to a list.
 
 ## Future features
 GUI
+
 Notifications

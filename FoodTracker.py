@@ -9,6 +9,7 @@ import copy
 import os
 from datetime import date
 import datetime
+from apscheduler.schedulers.blocking import BlockingScheduler
 
 
 #add food to save file to track
@@ -70,10 +71,10 @@ def checkDates():
     try:
         filePath = open('expOp.pkl', 'rb')
         filePath2 = pickle.load(filePath)
-        filePath3 = filePath2 + '\expired.txt'
+        filePath3 = filePath2 + '\list.txt'
         file2 = open(filePath3, 'a')
     except FileNotFoundError:
-        file2 = open('expired.txt', 'a')
+        file2 = open('list.txt', 'a')
     expiredList = []
     out = pickle.load(file)
     new = copy.copy(out)
@@ -94,6 +95,10 @@ def checkDates():
     except RuntimeError:
         checkDates()
         
+def startautocheck():
+    import autoCheck
+    main()
+
 def setExpFolder():
     setPath = input('file path of expired food list: ')
     file = open('expOp.pkl', 'wb')
@@ -110,7 +115,7 @@ def settings():
         main()
 #menu listing all of options for the user
 def main():
-    select = int(input('what action do you want to do?\n1. add new food \n2. delete save \n3. new save \n4.Check dates \n5.Remove a food item \n6. settings\n'))
+    select = int(input('what action do you want to do?\n1. add new food \n2. delete save \n3. new save \n4.Check dates \n5. Remove a food item \n6. start auto checker \n7. settings\n'))
     if select == 1:
         addFood()
     elif select == 2:
@@ -122,9 +127,13 @@ def main():
     elif select == 5:
         delFood()
     elif select == 6:
+        startautocheck()
+    elif select == 7:
         settings()
     else:
         print('enter numbers 1-6')
         main()
+
+
 
 main()

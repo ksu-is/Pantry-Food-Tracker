@@ -39,11 +39,14 @@ def addFood():
 
 #list all food in pantry
 def listFood():
-    print('food in pantry:')
-    file = open('save.pkl', 'rb')
-    out = pickle.load(file)
-    for keys in out.keys():
-        print(keys)    
+    try:
+        print('food in pantry:')
+        file = open('save.pkl', 'rb')
+        out = pickle.load(file)
+        for keys in out.keys():
+            print(keys)
+    except FileNotFoundError:
+        print('File does not exist. Create New Save file.')    
 
 #delete a food item from dictionary
 def delFood():
@@ -112,8 +115,6 @@ def checkDates():
     except RuntimeError:
         checkDates()
         
-def startautocheck():
-    import autoCheck
     
 
 def setExpFolder():

@@ -12,7 +12,7 @@
 - [X] add function to check for expired food
 - [X] add ability to create a "shopping list"
 - [ ] add user notifications
-- [ ] Create GUI
+- [X] Create GUI
 - [ ] extra: add barcode scanner if feasable
 
 ## Sprint 3:

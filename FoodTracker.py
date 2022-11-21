@@ -15,26 +15,31 @@ import tkinter.font as tkFont
 
 #add food to save file to track
 def addFood():
-    file = open('save.pkl', 'rb')
-    out = pickle.load(file)
-    new = copy.copy(out)
-    file.close()
-    os.remove('save.pkl')
-    foodName = input('enter food: ')
-    print('enter experation date:')
-    year = int(input('year: '))
-    month = int(input('month: '))
-    days = int(input('day: '))
-    exp = datetime.date(year,month,days)
-    exp2 = exp
-    new.update({foodName : exp2})
-    file = open('save.pkl', 'wb')
-    pickle.dump(new, file)
-    file.close()
-    print(foodName, 'added')
+    try:
+        file = open('save.pkl', 'rb')
+        out = pickle.load(file)
+        new = copy.copy(out)
+        file.close()
+        os.remove('save.pkl')
+        foodName = input('enter food: ')
+        print('enter experation date:')
+        year = int(input('year: '))
+        month = int(input('month: '))
+        days = int(input('day: '))
+        exp = datetime.date(year,month,days)
+        exp2 = exp
+        new.update({foodName : exp2})
+        file = open('save.pkl', 'wb')
+        pickle.dump(new, file)
+        file.close()
+        print(foodName, 'added')
+    except FileNotFoundError:
+        newSave()
+        addFood()
 
 #list all food in pantry
 def listFood():
+    print('food in pantry:')
     file = open('save.pkl', 'rb')
     out = pickle.load(file)
     for keys in out.keys():
@@ -118,86 +123,77 @@ def setExpFolder():
     file.close()
     
 
-"""
-def settings():
-    select = int(input('what do you want to set? \n1. Set folder for expired foods \n'))
-    if select == 1:
-        setExpFolder()
-    elif select == exit:
-        main()"""
-        
+#GUI using tkinter
 class App:
     def __init__(self, root):
         #setting title
         root.title("Food Tracker")
         #setting window size
-        width=307
-        height=256
+        width=272
+        height=284
         screenwidth = root.winfo_screenwidth()
         screenheight = root.winfo_screenheight()
         alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
         root.geometry(alignstr)
         root.resizable(width=False, height=False)
 
-        GButton_106=tk.Button(root)
-        GButton_106["bg"] = "#e9e9ed"
+        GButton_912=tk.Button(root)
+        GButton_912["bg"] = "#e9e9ed"
         ft = tkFont.Font(family='Times',size=10)
-        GButton_106["font"] = ft
-        GButton_106["fg"] = "#000000"
-        GButton_106["justify"] = "center"
-        GButton_106["text"] = "Add food"
-        GButton_106.place(x=20,y=50,width=70,height=25)
-        GButton_106["command"] = self.GButton_106_command
+        GButton_912["font"] = ft
+        GButton_912["fg"] = "#000000"
+        GButton_912["justify"] = "center"
+        GButton_912["text"] = "Add Food"
+        GButton_912.place(x=10,y=10,width=101,height=52)
+        GButton_912["command"] = self.GButton_912_command
 
-        GButton_576=tk.Button(root)
-        GButton_576["bg"] = "#e9e9ed"
+        GButton_601=tk.Button(root)
+        GButton_601["bg"] = "#e9e9ed"
         ft = tkFont.Font(family='Times',size=10)
-        GButton_576["font"] = ft
-        GButton_576["fg"] = "#000000"
-        GButton_576["justify"] = "center"
-        GButton_576["text"] = "Delete Save"
-        GButton_576.place(x=220,y=130,width=70,height=25)
-        GButton_576["command"] = self.GButton_576_command
+        GButton_601["font"] = ft
+        GButton_601["fg"] = "#000000"
+        GButton_601["justify"] = "center"
+        GButton_601["text"] = "Delete Food"
+        GButton_601.place(x=10,y=80,width=101,height=52)
+        GButton_601["command"] = self.GButton_601_command
 
-        GButton_281=tk.Button(root)
-        GButton_281["bg"] = "#e9e9ed"
+        GButton_936=tk.Button(root)
+        GButton_936["bg"] = "#e9e9ed"
         ft = tkFont.Font(family='Times',size=10)
-        GButton_281["font"] = ft
-        GButton_281["fg"] = "#000000"
-        GButton_281["justify"] = "center"
-        GButton_281["text"] = "New Save"
-        GButton_281.place(x=220,y=90,width=70,height=25)
-        GButton_281["command"] = self.GButton_281_command
+        GButton_936["font"] = ft
+        GButton_936["fg"] = "#000000"
+        GButton_936["justify"] = "center"
+        GButton_936["text"] = "Check Dates"
+        GButton_936.place(x=10,y=150,width=101,height=52)
+        GButton_936["command"] = self.GButton_936_command
 
-        GButton_689=tk.Button(root)
-        GButton_689["bg"] = "#e9e9ed"
+        GButton_369=tk.Button(root)
+        GButton_369["bg"] = "#e9e9ed"
         ft = tkFont.Font(family='Times',size=10)
-        GButton_689["font"] = ft
-        GButton_689["fg"] = "#000000"
-        GButton_689["justify"] = "center"
-        GButton_689["text"] = "Delete Food"
-        GButton_689.place(x=20,y=90,width=70,height=25)
-        GButton_689["command"] = self.GButton_689_command
+        GButton_369["font"] = ft
+        GButton_369["fg"] = "#000000"
+        GButton_369["justify"] = "center"
+        GButton_369["text"] = "List Food"
+        GButton_369.place(x=10,y=220,width=101,height=52)
+        GButton_369["command"] = self.GButton_369_command
 
-        GButton_448=tk.Button(root)
-        GButton_448["bg"] = "#e9e9ed"
+        GLabel_601=tk.Label(root)
+        ft = tkFont.Font(family='Times',size=12)
+        GLabel_601["font"] = ft
+        GLabel_601["fg"] = "#333333"
+        GLabel_601["justify"] = "center"
+        GLabel_601["text"] = "Settings:"
+        GLabel_601.place(x=150,y=20,width=70,height=25)
+
+        GButton_63=tk.Button(root)
+        GButton_63["bg"] = "#e9e9ed"
         ft = tkFont.Font(family='Times',size=10)
-        GButton_448["font"] = ft
-        GButton_448["fg"] = "#000000"
-        GButton_448["justify"] = "center"
-        GButton_448["text"] = "Check Dates"
-        GButton_448.place(x=20,y=130,width=70,height=25)
-        GButton_448["command"] = self.GButton_448_command
-
-        GButton_713=tk.Button(root)
-        GButton_713["bg"] = "#e9e9ed"
-        ft = tkFont.Font(family='Times',size=8)
-        GButton_713["font"] = ft
-        GButton_713["fg"] = "#000000"
-        GButton_713["justify"] = "center"
-        GButton_713["text"] = "Start autoCheck"
-        GButton_713.place(x=20,y=170,width=80,height=34)
-        GButton_713["command"] = self.GButton_713_command
+        GButton_63["font"] = ft
+        GButton_63["fg"] = "#000000"
+        GButton_63["justify"] = "center"
+        GButton_63["text"] = "New Save"
+        GButton_63.place(x=160,y=80,width=101,height=52)
+        GButton_63["command"] = self.GButton_63_command
 
         GButton_104=tk.Button(root)
         GButton_104["bg"] = "#e9e9ed"
@@ -205,58 +201,46 @@ class App:
         GButton_104["font"] = ft
         GButton_104["fg"] = "#000000"
         GButton_104["justify"] = "center"
-        GButton_104["text"] = "Set folder"
-        GButton_104.place(x=220,y=170,width=70,height=25)
+        GButton_104["text"] = "Delete Save"
+        GButton_104.place(x=160,y=150,width=101,height=52)
         GButton_104["command"] = self.GButton_104_command
 
-        GLabel_737=tk.Label(root)
+        GButton_880=tk.Button(root)
+        GButton_880["bg"] = "#e9e9ed"
         ft = tkFont.Font(family='Times',size=10)
-        GLabel_737["font"] = ft
-        GLabel_737["fg"] = "#333333"
-        GLabel_737["justify"] = "center"
-        GLabel_737["text"] = "Settings"
-        GLabel_737.place(x=210,y=50,width=70,height=25)
+        GButton_880["font"] = ft
+        GButton_880["fg"] = "#000000"
+        GButton_880["justify"] = "center"
+        GButton_880["text"] = "Set Folder"
+        GButton_880.place(x=160,y=220,width=101,height=52)
+        GButton_880["command"] = self.GButton_880_command
 
-        GButton_135=tk.Button(root)
-        GButton_135["bg"] = "#e9e9ed"
-        ft = tkFont.Font(family='Times',size=10)
-        GButton_135["font"] = ft
-        GButton_135["fg"] = "#000000"
-        GButton_135["justify"] = "center"
-        GButton_135["text"] = "List Food"
-        GButton_135.place(x=20,y=220,width=70,height=25)
-        GButton_135["command"] = self.GButton_135_command
-
-    def GButton_106_command(self):
+    def GButton_912_command(self):
         addFood()
 
 
-    def GButton_576_command(self):
-        deleteSave()
-
-
-    def GButton_281_command(self):
-        newSave()
-
-    def GButton_689_command(self):
+    def GButton_601_command(self):
         delFood()
 
 
-    def GButton_448_command(self):
+    def GButton_936_command(self):
         checkDates()
 
 
-    def GButton_713_command(self):
-        startautocheck()
+    def GButton_369_command(self):
+        listFood()
 
-    def GButton_449_command(self):
-        checkDates()
+
+    def GButton_63_command(self):
+        newSave()
+
 
     def GButton_104_command(self):
-        setExpFolder()
+        deleteSave()
 
-    def GButton_135_command(self):
-        listFood()
+
+    def GButton_880_command(self):
+        setExpFolder()
 
 if __name__ == "__main__":
     root = tk.Tk()
@@ -264,27 +248,4 @@ if __name__ == "__main__":
     root.mainloop()
         
 
-
-#menu listing all of options for the user
-"""
-def main():
-    select = int(input('what action do you want to do?\n1. add new food \n2. delete save \n3. new save \n4.Check dates \n5. Remove a food item \n6. start auto checker \n7. settings\n'))
-    if select == 1:
-        addFood()
-    elif select == 2:
-        deleteSave()
-    elif select == 3:
-        newSave()
-    elif select == 4:
-        checkDates()
-    elif select == 5:
-        delFood()
-    elif select == 6:
-        startautocheck()
-    elif select == 7:
-        settings()
-    else:
-        print('enter numbers 1-6')
-        main()
-"""
 

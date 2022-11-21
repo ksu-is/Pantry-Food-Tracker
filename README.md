@@ -2,9 +2,19 @@
 Pantry Food Tracker is a tool to keep track of food in your pantry. You can use it to keep track of anything expired and create shopping lists.
 
 ## Current features
-Currently users can create and delete a save file, and add food to a list.
 
-## Future features
-GUI
+* Users can add and delete food to their pantry. 
+* List food in pantry
+* check pantry for expired food
+* create and delete save file
+* Set folder for shopping list
+* Autocheck runs and periodically checks for expired food, adds it to the list automatically
 
-Notifications
+## Required modules
+* Pickle
+* Copy
+* OS 
+* Datetime
+* apscheduler
+* tkinter
+* wint10toast

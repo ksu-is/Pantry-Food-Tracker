@@ -12,6 +12,7 @@ import datetime
 from apscheduler.schedulers.blocking import BlockingScheduler
 import tkinter as tk
 import tkinter.font as tkFont
+from tkinter import filedialog
 
 #add food to save file to track
 def addFood():
@@ -118,9 +119,10 @@ def checkDates():
     
 
 def setExpFolder():
-    setPath = input('file path of expired food list: ')
+    tk.Tk().withdraw() # prevents an empty tkinter window from appearing
+    folder_path = filedialog.askdirectory()
     file = open('expOp.pkl', 'wb')
-    pickle.dump(setPath, file)
+    pickle.dump(folder_path, file)
     file.close()
     
 

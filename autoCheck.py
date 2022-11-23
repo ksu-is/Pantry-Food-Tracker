@@ -1,9 +1,16 @@
+"""
+IS3020
+
+@author: David Thomas
+"""
+
 import pickle
 import copy
+from apscheduler.schedulers.blocking import BlockingScheduler
 import os
 from datetime import date
 from win10toast import ToastNotifier
-from apscheduler.schedulers.blocking import BlockingScheduler
+
 
 
 sched = BlockingScheduler()
@@ -26,7 +33,7 @@ def checkDates():
     try:
         for key, value in new.items():
             if value <= date.today():
-                print(key)
+                print(key, 'expired')
                 notification()
                 expiredList.append(key)
                 os.remove('save.pkl')
@@ -50,6 +57,3 @@ def notification():
     )
 
 sched.start()
-
-
-

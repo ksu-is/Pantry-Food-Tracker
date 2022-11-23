@@ -16,6 +16,18 @@ from tkinter import filedialog
 
 #add food to save file to track
 def addFood():
+    today = date.today()
+    todays = str(today)
+    file = open('save.pkl', 'rb')
+    out = pickle.load(file)
+    new = copy.copy(out)
+    file.close()
+    script_dir = os.path.dirname(__file__)
+    rel_path = 'backup\save ' + todays + '.pkl'
+    abs_file_path = os.path.join(script_dir, rel_path)
+    backup = open(abs_file_path, 'wb')
+    pickle.dump(new, backup)
+    backup.close()
     try:
         file = open('save.pkl', 'rb')
         out = pickle.load(file)
@@ -53,7 +65,7 @@ def listFood():
 def delFood():
     file = open('save.pkl', 'rb')
     out = pickle.load(file)
-    new = copy.copy(out)
+    new = copy.copy(out)  
     print('current food in pantry:')
     file.close()
     for keys in new.keys():
@@ -72,19 +84,27 @@ def delFood():
 
 #deletes save file
 def deleteSave():
-    try:
-        os.remove('save.pkl')
-    except FileNotFoundError:
-        print('save file does not exist')
+    cont = input('type "y" to coninue. This will delete any current save file.\n')
+    if cont == 'y':
+        try:
+            os.remove('save.pkl')
+            print('save.pkl deleted')
+        except FileNotFoundError:
+            print('save file does not exist')
+    else:
+        print(':)')
 
 
 #create a new save file
 def newSave():
     food = {}
-    file = open('save.pkl', 'wb')
-    pickle.dump(food,file)
-    file.close()
-    
+    cont = input('This will create a new save.pkl file. Type "y" to continue.\n')
+    if cont == 'y':
+        file = open('save.pkl', 'wb')
+        pickle.dump(food,file)
+        file.close()
+    else:
+        print(':)')
 
 #check for expired food
 def checkDates():
@@ -103,7 +123,7 @@ def checkDates():
     try:
         for key, value in new.items():
             if value <= date.today():
-                print(key)
+                print(key, 'expired')
                 expiredList.append(key)
                 os.remove('save.pkl')
                 new.pop(key)
@@ -249,6 +269,3 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = App(root)
     root.mainloop()
-        
-
-

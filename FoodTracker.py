@@ -16,18 +16,17 @@ from tkinter import filedialog
 
 #add food to save file to track
 def addFood():
-    today = date.today()
-    todays = str(today)
-    file = open('save.pkl', 'rb')
-    out = pickle.load(file)
-    new = copy.copy(out)
-    file.close()
-    script_dir = os.path.dirname(__file__)
-    rel_path = 'backup\save ' + todays + '.pkl'
-    abs_file_path = os.path.join(script_dir, rel_path)
-    backup = open(abs_file_path, 'wb')
-    pickle.dump(new, backup)
-    backup.close()
+    try:
+        file = open('save.pkl', 'rb')
+        out = pickle.load(file)
+        new = copy.copy(out)
+        backup = open('backup.pkl', 'wb')
+        pickle.dump(new, backup)
+        backup.close()
+        file.close()
+    except FileNotFoundError:
+        print('save file not found.')
+        newSave()
     try:
         file = open('save.pkl', 'rb')
         out = pickle.load(file)
@@ -106,6 +105,8 @@ def newSave():
     else:
         print(':)')
 
+    
+
 #check for expired food
 def checkDates():
     file = open('save.pkl', 'rb')
@@ -137,6 +138,7 @@ def checkDates():
         checkDates()
         
     
+
 
 def setExpFolder():
     tk.Tk().withdraw() # prevents an empty tkinter window from appearing
